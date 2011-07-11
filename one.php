@@ -15,7 +15,7 @@
  *
  * @throws Exception when key is not a string, or when $instance is not given and $key is not a valid class name.
  *
- * @author Anton Andriyevskyy (Meglio), Denis Morozov (iX-Cray)
+ * @author Anton Andriyevskyy (Meglio), Denis Morozov (mrXCray)
  */
 function one($key, $instance = null)
 {
