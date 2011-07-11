@@ -6,3 +6,39 @@ Benefits:
 * no special factory methods must be added to class in order to mantain its singleton object.
 
 Each object or value stored in registry will be lazily initialized upon first request and placed in registry only once, and from that moment the value or the link to an object instance will remain immutable.
+
+### Examples
+
+// Create singleton object of class Application (with calling its constructor with no parameters):
+$app = one('Application');
+
+// ... or going further, define app() function to be used in call chains:
+function arr( return one('Application'); );
+
+// ... then in any place of your code you can use:
+app()->doSomething();
+
+
+// Create 2 global fake singleton objects of the same class with parametrized constructor calls
+// (I say fake because real singleton is only one possible instance created for one class):
+function some() { return one( 'MyKeyForSome', function(){return new AClass();} ); }
+function bla() { return one( 'MyKeyForBla', function(){return new AClass(false, 'abc');} ); }
+
+// Save database access parameters from user configuration file, and prevent changing them.
+// You can even unset user defined configuration variables after initializing configuration array,
+// so accessing them makes no sense anymore.
+function mysqlParams() { return one('mysqlParams', function(){ global $MYSQL; $x=$MYSQL; unset($MYSQL); return $x; }) };
+
+
+// Simply mantain database instance, but connect lazily
+function db() { return one(function() { return new DB(mysqlParams()); }); }
+
+// ... now we can use it in a chain:
+db()->query();
+
+
+### Performance - no issues:
+
+Passing closure when calling one() will not consume memory because of the way how PHP improves usage
+of function parameters. Actually, closure object will be instantiated only when called, this means
+it will be done only once. Further more, it will be done lazily - at first request with one().
