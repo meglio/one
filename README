@@ -1,0 +1,8 @@
+This project is as tiny as only one file with one function named one() ;)
+It implements a mutable registry of immutable values / object references.
+
+Benefits:
+* lazy initialization of stored values;
+* no special factory methods must be added to class in order to mantain its singleton object.
+
+Each object or value stored in registry will be lazily initialized upon first request and placed in registry only once, and from that moment the value or the link to an object instance will remain immutable.
