@@ -53,7 +53,7 @@ it will infer instantiation to be constructor of class ArrayObject.
 The same works well with constructors which expects parameters:
 
 	class User() { function __construct($id) { /*...*/ } }
-	function user($id){ return one('User') }
+	function user($id){ return one('User', $id) }
 
 
 ### Performance - no issues
